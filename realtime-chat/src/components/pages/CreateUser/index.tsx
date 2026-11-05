@@ -1,5 +1,6 @@
-import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Alert, Typography } from 'antd';
+
+import './index.less'
 
 const layout = {
   labelCol: { span: 8 },
@@ -7,7 +8,7 @@ const layout = {
 };
 
 const validateMessages = {
-  required: '${label} is required!',
+  required: 'Campo ${label} obrigatório!',
   types: {
     email: '${label} is not a valid email!',
     number: '${label} is not a valid number!',
@@ -23,37 +24,62 @@ const onFinish = (values: any) => {
 
 
 function CreateUser() {
+  const [form] = Form.useForm();
+
   const onFinish = (value: object) => {
     console.log(value);
   };
 
   return (
-    <Form
-      {...layout}
-      name="nest-messages"
-      onFinish={onFinish}
-      style={{ maxWidth: 600 }}
-      validateMessages={validateMessages}
-    >
-      <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email', required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item<string>
-      label="Password"
-      name="password"
-      rules={[{ required: true, message: 'Please input your password!' }]}
-    >
-      <Input.Password />
-    </Form.Item>
-      <Form.Item label={null}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <div className='container-create-user'>
+      <h1 className='container-create-user__title'>Crie a Sua Conta</h1>
+      <Form
+        form={form}
+        name="nest-messages"
+        onFinish={onFinish}
+        style={{ maxWidth: 600 }}
+        validateMessages={validateMessages}
+        layout='vertical'
+      >
+        <Form.Item name={['user', 'name']} label="Nome" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email', required: true }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item label="Senha" name="password" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+
+        {/* Field */}
+        <Form.Item
+          label="Confirmar Senha"
+          name="password2"
+          dependencies={['password']}
+          rules={[
+            {
+              required: true,
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('As Senhas Digitadas não são iguais!'));
+              },
+            }),
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item label={null}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 }
 
