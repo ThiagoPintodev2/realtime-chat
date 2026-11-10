@@ -1,11 +1,9 @@
-import { Button, Form, Input, Alert, Typography } from 'antd';
+import { Link} from 'react-router';
+
+import { Button, Form, Input } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 import './index.less'
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
 const validateMessages = {
   required: 'Campo ${label} obrigatório!',
@@ -79,6 +77,7 @@ function CreateUser() {
           </Button>
         </Form.Item>
       </Form>
+      <Link className='link' to='/'><ArrowLeftOutlined />&nbsp;Voltar</Link>
     </div>
   );
 }
