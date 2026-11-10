@@ -13,7 +13,7 @@ export const createMembers = async (req: Request<{}, {}, CreateMemberBody>, res:
       data: {
         name: req.body.name,
         email: req.body.email,
-        password: (req.body.password)
+        password: req.body.password
       }
     })
     res.json(newMember)

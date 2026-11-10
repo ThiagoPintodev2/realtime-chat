@@ -1,5 +1,5 @@
-import { Link} from 'react-router';
-
+import { Link } from 'react-router';
+import axios from 'axios';
 import { Button, Form, Input } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -16,17 +16,29 @@ const validateMessages = {
   },
 };
 
-const onFinish = (values: any) => {
-  console.log(values);
-};
-
+type RegisterForm = {
+  user: {
+    name: string;
+    email: string;
+  };
+  password: string;
+  password2: string;
+}
 
 function CreateUser() {
   const [form] = Form.useForm();
 
-  const onFinish = (value: object) => {
-    console.log(value);
-  };
+  const createNewUser = async (value: RegisterForm) => {
+    try {
+      const response = await axios.post('http://localhost:3000/create-user', {
+        name: value.user.name,
+        email: value.user.email,
+        password: value.password
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className='container-create-user'>
@@ -34,7 +46,7 @@ function CreateUser() {
       <Form
         form={form}
         name="nest-messages"
-        onFinish={onFinish}
+        onFinish={createNewUser}
         style={{ maxWidth: 600 }}
         validateMessages={validateMessages}
         layout='vertical'
