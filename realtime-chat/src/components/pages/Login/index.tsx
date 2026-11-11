@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import baseUrl from '../../../../backend/services/api'
 
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
@@ -12,7 +13,7 @@ type LoginBody = {
 }
 
 function Login() {
-
+  const navigate = useNavigate()
   const onFinish = async (values: LoginBody) => {
     console.log(values)
     try {
@@ -20,6 +21,7 @@ function Login() {
           email: values.email,
           password: values.password
       })
+      navigate('/chat-room')
     }catch(error) {
       console.log(error + 'Falha ao Logar!')
     }

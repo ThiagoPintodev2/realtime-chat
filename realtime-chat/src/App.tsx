@@ -7,6 +7,7 @@ import authContext from "./context/authContext";
 import Login from './components/pages/Login';
 
 import './App.css'
+import ChatRoom from "./components/pages/Chat-room";
 
 function App() {
   const [isAuthentication, setIsAuthentication] = useState(false);
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/create-user' element={<CreateUser />} />
+            <Route path='/chat-room' element={<ChatRoom />} />
           </Routes>
         </BrowserRouter>
       </authContext.Provider>
