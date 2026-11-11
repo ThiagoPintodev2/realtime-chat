@@ -1,9 +1,11 @@
 import express = require("express");
-import { createMembers } from "../controllers/realtimeChatControllers"
+import { createMembers, loginMember } from "../controllers/realtimeChatControllers"
 
 const router = express.Router()
 
-// Cria Novo Membro
+// Criar Novo Membro
 router.post('/create-user', createMembers)
+// Login do Usuario
+router.post('/login', loginMember)
 
 export default router;

@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Flex, Form, Input } from 'antd';
 import { Link } from 'react-router';
 
@@ -19,10 +19,10 @@ function Login() {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
-          rules={[{ required: true, message: 'Please input your Username!' }]}
+          name="email"
+          rules={[{ required: true, message: 'Please input your Email!' }]}
         >
-          <Input prefix={<UserOutlined />} placeholder="Username" />
+          <Input prefix={<MailOutlined />} placeholder="Email" />
         </Form.Item>
         <Form.Item
           name="password"
