@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../db";
 import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken";
 
 type CreateMemberBody = {
   name: string;
@@ -60,8 +61,22 @@ export const loginMember = async (
         message: "Email ou senha inválidos",
       });
     }
+
+    const JWT_SECRET = process.env.JWT_SECRET;
+
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET não configurado no .env");
+    }
+
+    const token = jwt.sign(
+      { id: member.id, email: member.email },
+      JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+    
     return res.status(200).json({
       message: "Login realizado com sucesso",
+      token,
       user: {
         id: member.id,
         name: member.name,

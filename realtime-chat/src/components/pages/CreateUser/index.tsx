@@ -1,5 +1,4 @@
 import { Link } from 'react-router';
-import axios from 'axios';
 import baseUrl from '../../../../backend/services/api'
 import { Button, Form, Input } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';

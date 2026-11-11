@@ -1,4 +1,3 @@
-import axios from 'axios';
 import baseUrl from '../../../../backend/services/api'
 
 import { LockOutlined, MailOutlined } from '@ant-design/icons';

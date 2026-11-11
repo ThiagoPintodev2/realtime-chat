@@ -1,5 +1,5 @@
 import express = require("express");
-import { createMembers, loginMember } from "../controllers/realtimeChatControllers"
+import { createMembers, loginMember } from "../controllers/realtimeChatControllers";
 
 const router = express.Router()
 
