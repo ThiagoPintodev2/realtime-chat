@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import axios from 'axios';
+import baseUrl from '../../../../backend/services/api'
 import { Button, Form, Input } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -30,7 +31,7 @@ function CreateUser() {
 
   const createNewUser = async (value: RegisterForm) => {
     try {
-      const response = await axios.post('http://localhost:3000/create-user', {
+      const response = await baseUrl.post('/create-user', {
         name: value.user.name,
         email: value.user.email,
         password: value.password

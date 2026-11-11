@@ -1,20 +1,35 @@
+import axios from 'axios';
+import baseUrl from '../../../../backend/services/api'
+
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Flex, Form, Input } from 'antd';
+import { Button, Flex, Form, Input } from 'antd';
 import { Link } from 'react-router';
 
 import './index.less'
 
+type LoginBody = {
+  email: string,
+  password: string
+}
+
 function Login() {
 
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+  const onFinish = async (values: LoginBody) => {
+    console.log(values)
+    try {
+      const loginUser = await baseUrl.post('/login', {
+          email: values.email,
+          password: values.password
+      })
+    }catch(error) {
+      console.log(error + 'Falha ao Logar!')
+    }
   };
   return (
     <div className='container-login'>
       <h1 className='container-login__title'>Faça o login para entrar na sala de bate papo</h1>
       <Form
         name="login"
-        initialValues={{ remember: true }}
         style={{ maxWidth: 360 }}
         onFinish={onFinish}
       >
@@ -31,10 +46,7 @@ function Login() {
           <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
         </Form.Item>
         <Form.Item>
-          <Flex justify="space-between" align="center">
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+          <Flex justify="center" align="center">
             <a href="">Forgot password</a>
           </Flex>
         </Form.Item>
